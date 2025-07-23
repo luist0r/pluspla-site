@@ -367,6 +367,7 @@
     <script>
         // Espera a que el DOM esté completamente cargado antes de ejecutar el script
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM completamente cargado. Inicializando la aplicación.');
 
             // Configuración común para tooltips de Chart.js
             const tooltipConfig = {
@@ -404,6 +405,7 @@
             };
 
             // Inicialización del gráfico de donut (Distribución de Clientes)
+            console.log('Intentando inicializar clientDonutChart.');
             const clientDonutCtx = document.getElementById('clientDonutChart');
             if(clientDonutCtx) {
                 new Chart(clientDonutCtx, {
@@ -433,9 +435,13 @@
                         }
                     }
                 });
+                console.log('clientDonutChart inicializado con éxito.');
+            } else {
+                console.error('No se encontró el elemento canvas con ID clientDonutChart.');
             }
 
             // Inicialización del gráfico de radar (Foco de Servicios por Cliente)
+            console.log('Intentando inicializar servicesRadarChart.');
             const servicesRadarCtx = document.getElementById('servicesRadarChart');
             if(servicesRadarCtx) {
                 new Chart(servicesRadarCtx, {
@@ -450,267 +456,280 @@
                                 backgroundColor: 'rgba(255, 187, 0, 0.2)',
                                 borderColor: '#FFBB00',
                                 pointBackgroundColor: '#FFBB00',
-+                            }, {
+                            }, {
                                 label: 'Gobiernos',
                                 data: [9, 10, 6, 5, 9],
                                 fill: true,
                                 backgroundColor: 'rgba(244, 0, 0, 0.2)',
                                 borderColor: '#F40000',
                                 pointBackgroundColor: '#F40000',
-+                            }
-+                        ]
-+                    },
-+                    options: {
-+                        responsive: true,
-+                        maintainAspectRatio: false,
-+                        plugins: {
-+                             ...tooltipConfig.plugins,
-+                            legend: {
-+                                position: 'bottom',
-+                                labels: {
-+                                    color: '#FFFFFF'
-+                                }
-+                            }
-+                        },
-+                        scales: {
-+                            r: {
-+                                angleLines: { color: 'rgba(255, 255, 255, 0.2)' },
-+                                grid: { color: 'rgba(255, 255, 255, 0.2)' },
-+                                pointLabels: { color: '#FFFFFF', font: { size: 12 } },
-+                                ticks: {
-+                                    color: '#030C1D', // Color de los ticks, se hace oscuro para que resalte en el fondo claro del tick
-+                                    backdropColor: 'rgba(255, 255, 255, 0.8)', // Fondo claro para los ticks
-+                                    stepSize: 2
-+                                }
-+                            }
-+                        }
-+                    }
-+                });
-+            }
-+            
-+            // Inicialización del gráfico polar (Visión 360°)
-+            const visionPolarCtx = document.getElementById('visionPolarChart');
-+            if(visionPolarCtx) {
-+                new Chart(visionPolarCtx, {
-+                    type: 'polarArea',
-+                    data: {
-+                        labels: ['Vigilancia Territorial', 'Inteligencia Visual', 'Cartografía Estratégica', 'Campañas Aéreas', 'Análisis Digital'],
-+                        datasets: [{
-+                            label: 'Visión 360°',
-+                            data: [8, 9, 7, 6, 10],
-+                            backgroundColor: [
-+                                'rgba(255, 187, 0, 0.7)', /* Amarillo con transparencia */
-+                                'rgba(244, 0, 0, 0.7)', /* Rojo con transparencia */
-+                                'rgba(255, 255, 255, 0.7)', /* Blanco con transparencia */
-+                                'rgba(255, 187, 0, 0.5)',
-+                                'rgba(244, 0, 0, 0.5)'
-+                            ]
-+                        }]
-+                    },
-+                    options: {
-+                        responsive: true,
-+                        maintainAspectRatio: false,
-+                        plugins: {
-+                            ...tooltipConfig.plugins,
-+                            legend: {
-+                                position: 'bottom',
-+                                labels: {
-+                                    color: '#FFFFFF',
-+                                    font: { size: 14 },
-+                                    boxWidth: 20
-+                                }
-+                            }
-+                        },
-+                        scales: {
-+                            r: {
-+                                grid: { color: 'rgba(255, 255, 255, 0.2)' },
-+                                ticks: {
-+                                    display: false // Oculta los valores de los ticks en el eje radial
-+                                }
-+                            }
-+                        }
-+                    }
-+                });
-+            }
-+
-+            // Inicialización del gráfico de barras (Impacto Medible)
-+            const impactBarCtx = document.getElementById('impactBarChart');
-+            if(impactBarCtx) {
-+                new Chart(impactBarCtx, {
-+                    type: 'bar',
-+                    data: {
-+                        labels: [
-+                            wrapLabel('Aumento en Percepción Positiva'), /* Envuelve etiquetas largas */
-+                            wrapLabel('Optimización de Procesos Internos'), 
-+                            wrapLabel('Mejora en Engagement Digital'), 
-+                            wrapLabel('Eficiencia en Gestión de Campaña')
-+                        ],
-+                        datasets: [{
-+                            label: '% de Mejora Promedio',
-+                            data: [35, 50, 45, 30],
-+                            backgroundColor: ['#FFBB00', '#F40000', '#FFBB00', '#F40000'], /* Colores alternados */
-+                            borderRadius: 5 /* Bordes redondeados para las barras */
-+                        }]
-+                    },
-+                    options: {
-+                        indexAxis: 'y', // Hace el gráfico de barras horizontal
-+                        responsive: true,
-+                        maintainAspectRatio: false,
-+                        plugins: {
-+                            ...tooltipConfig.plugins,
-+                            legend: {
-+                                display: false // No mostrar leyenda para una sola serie de datos
-+                            }
-+                        },
-+                        scales: {
-+                            x: {
-+                                grid: {
-+                                    color: 'rgba(255, 255, 255, 0.1)' // Líneas de cuadrícula sutiles
-+                                },
-+                                ticks: {
-+                                    color: '#FFFFFF', // Color de los ticks del eje X
-+                                    callback: function(value) {
-+                                        return value + '%' // Añade el signo de porcentaje a los ticks
-+                                    }
-+                                }
-+                            },
-+                            y: {
-+                                grid: {
-+                                    display: false // No mostrar líneas de cuadrícula en el eje Y
-+                                },
-+                                ticks: {
-+                                    color: '#FFFFFF', // Color de los ticks del eje Y
-+                                    font: {
-+                                        size: 14
-+                                    }
-+                                }
-+                            }
-+                        }
-+                    }
-+                });
-+            }
-+
-+            // Smooth scrolling para enlaces de anclaje
-+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-+                anchor.addEventListener('click', function (e) {
-+                    e.preventDefault(); // Previene el comportamiento por defecto del enlace
-+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-+                        behavior: 'smooth' // Desplazamiento suave
-+                    });
-+                });
-+            });
-+
-+            // Lógica para el formulario de contacto y recomendación de servicio (integración con Gemini API)
-+            const contactForm = document.getElementById('contactForm');
-+            const contactSpinner = document.getElementById('contactSpinner');
-+            const serviceRecommendationOutput = document.getElementById('serviceRecommendationOutput');
-+
-+            contactForm.addEventListener('submit', async (e) => {
-+                e.preventDefault(); // Previene el envío del formulario
-+                contactSpinner.classList.remove('hidden'); // Muestra el spinner
-+                serviceRecommendationOutput.classList.add('hidden'); // Oculta el output anterior
-+                serviceRecommendationOutput.innerHTML = ''; // Limpia el contenido anterior
-+
-+                const message = document.getElementById('contactMessage').value;
-+                const organization = document.getElementById('contactOrganization').value;
-+
-+                // Validación básica de campos
-+                if (!message || !organization) {
-+                    serviceRecommendationOutput.classList.remove('hidden');
-+                    serviceRecommendationOutput.innerHTML = '<p class="text-red-400">Por favor, completa el mensaje y la organización para obtener una recomendación.</p>';
-+                    contactSpinner.classList.add('hidden');
-+                    return;
-+                }
-+
-+                // Preparación del payload para la API de Gemini
-+                let chatHistory = [];
-+                chatHistory.push({ role: "user", parts: [{ text: `Un usuario de PlusPlan ha enviado el siguiente mensaje: '${message}' y su organización es '${organization}'. Basado en nuestros servicios (Inteligencia Artificial y Software, Imagen y Marketing Político, Imagen Pública para Candidatos), ¿cuál de nuestros servicios principales crees que sería más relevante para ellos? Responde con el nombre del servicio y una breve justificación de una frase. Si no es claro, sugiere 'una asesoría personalizada'.` }] });
-+                const payload = { contents: chatHistory };
-+                const apiKey = ""; // La API Key será inyectada por el entorno de Canvas/Immersive
-+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-+
-+                try {
-+                    // Realiza la llamada a la API de Gemini
-+                    const response = await fetch(apiUrl, {
-+                        method: 'POST',
-+                        headers: { 'Content-Type': 'application/json' },
-+                        body: JSON.stringify(payload)
-+                    });
-+                    const result = await response.json();
-+
-+                    // Procesa la respuesta de la API
-+                    if (result.candidates && result.candidates.length > 0 &&
-+                        result.candidates[0].content && result.candidates[0].content.parts &&
-+                        result.candidates[0].content.parts.length > 0) {
-+                        const text = result.candidates[0].content.parts[0].text;
-+                        serviceRecommendationOutput.innerHTML = `<p class="font-bold text-accent-yellow">Recomendación de Servicio:</p><p>${text}</p>`;
-+                    } else {
-+                        serviceRecommendationOutput.innerHTML = '<p class="text-red-400">No se pudo generar una recomendación en este momento. Inténtalo de nuevo más tarde.</p>';
-+                    }
-+                } catch (error) {
-+                    // Manejo de errores de la llamada a la API
-+                    serviceRecommendationOutput.innerHTML = `<p class="text-red-400">Error al conectar con la IA: ${error.message}</p>`;
-+                } finally {
-+                    contactSpinner.classList.add('hidden'); // Oculta el spinner
-+                    serviceRecommendationOutput.classList.remove('hidden'); // Muestra el output
-+                }
-+            });
-+
-+            // Lógica para generar consejos de liderazgo (integración con Gemini API)
-+            const generateLeadershipTipBtn = document.getElementById('generateLeadershipTipBtn');
-+            const leadershipGoalInput = document.getElementById('leadershipGoalInput');
-+            const leadershipTipSpinner = document.getElementById('leadershipTipSpinner');
-+            const leadershipTipOutput = document.getElementById('leadershipTipOutput');
-+
-+            generateLeadershipTipBtn.addEventListener('click', async () => {
-+                leadershipTipSpinner.classList.remove('hidden'); // Muestra el spinner
-+                leadershipTipOutput.classList.add('hidden'); // Oculta el output anterior
-+                leadershipTipOutput.innerHTML = ''; // Limpia el contenido anterior
-+
-+                const goal = leadershipGoalInput.value;
-+
-+                // Validación básica de campo
-+                if (!goal) {
-+                    leadershipTipOutput.classList.remove('hidden');
-+                    leadershipTipOutput.innerHTML = '<p class="text-red-400">Por favor, describe tu objetivo de liderazgo.</p>';
-+                    leadershipTipSpinner.classList.add('hidden');
-+                    return;
-+                }
-+
-+                // Preparación del payload para la API de Gemini
-+                let chatHistory = [];
-+                chatHistory.push({ role: "user", parts: [{ text: `Genera un consejo de liderazgo político o social, conciso y accionable, para alguien que busca '${goal}'. Enfócate en la estrategia o la percepción. Máximo 2-3 frases.` }] });
-+                const payload = { contents: chatHistory };
-+                const apiKey = ""; // La API Key será inyectada por el entorno de Canvas/Immersive
-+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-+
-+                try {
-+                    // Realiza la llamada a la API de Gemini
-+                    const response = await fetch(apiUrl, {
-+                        method: 'POST',
-+                        headers: { 'Content-Type': 'application/json' },
-+                        body: JSON.stringify(payload)
-+                    });
-+                    const result = await response.json();
-+
-+                    // Procesa la respuesta de la API
-+                    if (result.candidates && result.candidates.length > 0 &&
-+                        result.candidates[0].content && result.candidates[0].content.parts &&
-+                        result.candidates[0].content.parts.length > 0) {
-+                        const text = result.candidates[0].content.parts[0].text;
-+                        leadershipTipOutput.innerHTML = `<p>${text}</p>`;
-+                    } else {
-+                        leadershipTipOutput.innerHTML = '<p class="text-red-400">No se pudo generar un consejo en este momento. Inténtalo de nuevo más tarde.</p>';
-+                    }
-+                } catch (error) {
-+                    // Manejo de errores de la llamada a la API
-+                    leadershipTipOutput.innerHTML = `<p class="text-red-400">Error al conectar con la IA: ${error.message}</p>`;
-+                } finally {
-+                    leadershipTipSpinner.classList.add('hidden'); // Oculta el spinner
-+                    leadershipTipOutput.classList.remove('hidden'); // Muestra el output
-+                }
-+            });
-+        });
-+    </script>
-+</body>
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                             ...tooltipConfig.plugins,
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#FFFFFF'
+                                }
+                            }
+                        },
+                        scales: {
+                            r: {
+                                angleLines: { color: 'rgba(255, 255, 255, 0.2)' },
+                                grid: { color: 'rgba(255, 255, 255, 0.2)' },
+                                pointLabels: { color: '#FFFFFF', font: { size: 12 } },
+                                ticks: {
+                                    color: '#030C1D', // Color de los ticks, se hace oscuro para que resalte en el fondo claro del tick
+                                    backdropColor: 'rgba(255, 255, 255, 0.8)', // Fondo claro para los ticks
+                                    stepSize: 2
+                                }
+                            }
+                        }
+                    }
+                });
+                console.log('servicesRadarChart inicializado con éxito.');
+            } else {
+                console.error('No se encontró el elemento canvas con ID servicesRadarChart.');
+            }
+            
+            // Inicialización del gráfico polar (Visión 360°)
+            console.log('Intentando inicializar visionPolarChart.');
+            const visionPolarCtx = document.getElementById('visionPolarChart');
+            if(visionPolarCtx) {
+                new Chart(visionPolarCtx, {
+                    type: 'polarArea',
+                    data: {
+                        labels: ['Vigilancia Territorial', 'Inteligencia Visual', 'Cartografía Estratégica', 'Campañas Aéreas', 'Análisis Digital'],
+                        datasets: [{
+                            label: 'Visión 360°',
+                            data: [8, 9, 7, 6, 10],
+                            backgroundColor: [
+                                'rgba(255, 187, 0, 0.7)', /* Amarillo con transparencia */
+                                'rgba(244, 0, 0, 0.7)', /* Rojo con transparencia */
+                                'rgba(255, 255, 255, 0.7)', /* Blanco con transparencia */
+                                'rgba(255, 187, 0, 0.5)',
+                                'rgba(244, 0, 0, 0.5)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            ...tooltipConfig.plugins,
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#FFFFFF',
+                                    font: { size: 14 },
+                                    boxWidth: 20
+                                }
+                            }
+                        },
+                        scales: {
+                            r: {
+                                grid: { color: 'rgba(255, 255, 255, 0.2)' },
+                                ticks: {
+                                    display: false // Oculta los valores de los ticks en el eje radial
+                                }
+                            }
+                        }
+                    }
+                });
+                console.log('visionPolarChart inicializado con éxito.');
+            } else {
+                console.error('No se encontró el elemento canvas con ID visionPolarChart.');
+            }
+
+            // Inicialización del gráfico de barras (Impacto Medible)
+            console.log('Intentando inicializar impactBarChart.');
+            const impactBarCtx = document.getElementById('impactBarChart');
+            if(impactBarCtx) {
+                new Chart(impactBarCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                            wrapLabel('Aumento en Percepción Positiva'), /* Envuelve etiquetas largas */
+                            wrapLabel('Optimización de Procesos Internos'), 
+                            wrapLabel('Mejora en Engagement Digital'), 
+                            wrapLabel('Eficiencia en Gestión de Campaña')
+                        ],
+                        datasets: [{
+                            label: '% de Mejora Promedio',
+                            data: [35, 50, 45, 30],
+                            backgroundColor: ['#FFBB00', '#F40000', '#FFBB00', '#F40000'], /* Colores alternados */
+                            borderRadius: 5 /* Bordes redondeados para las barras */
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y', // Hace el gráfico de barras horizontal
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            ...tooltipConfig.plugins,
+                            legend: {
+                                display: false // No mostrar leyenda para una sola serie de datos
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)' // Líneas de cuadrícula sutiles
+                                },
+                                ticks: {
+                                    color: '#FFFFFF', // Color de los ticks del eje X
+                                    callback: function(value) {
+                                        return value + '%' // Añade el signo de porcentaje a los ticks
+                                    }
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false // No mostrar líneas de cuadrícula en el eje Y
+                                },
+                                ticks: {
+                                    color: '#FFFFFF', // Color de los ticks del eje Y
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                console.log('impactBarChart inicializado con éxito.');
+            } else {
+                console.error('No se encontró el elemento canvas con ID impactBarChart.');
+            }
+
+            // Smooth scrolling para enlaces de anclaje
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault(); // Previene el comportamiento por defecto del enlace
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth' // Desplazamiento suave
+                    });
+                });
+            });
+
+            // Lógica para el formulario de contacto y recomendación de servicio (integración con Gemini API)
+            const contactForm = document.getElementById('contactForm');
+            const contactSpinner = document.getElementById('contactSpinner');
+            const serviceRecommendationOutput = document.getElementById('serviceRecommendationOutput');
+
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Previene el envío del formulario
+                contactSpinner.classList.remove('hidden'); // Muestra el spinner
+                serviceRecommendationOutput.classList.add('hidden'); // Oculta el output anterior
+                serviceRecommendationOutput.innerHTML = ''; // Limpia el contenido anterior
+
+                const message = document.getElementById('contactMessage').value;
+                const organization = document.getElementById('contactOrganization').value;
+
+                // Validación básica de campos
+                if (!message || !organization) {
+                    serviceRecommendationOutput.classList.remove('hidden');
+                    serviceRecommendationOutput.innerHTML = '<p class="text-red-400">Por favor, completa el mensaje y la organización para obtener una recomendación.</p>';
+                    contactSpinner.classList.add('hidden');
+                    return;
+                }
+
+                // Preparación del payload para la API de Gemini
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Un usuario de PlusPlan ha enviado el siguiente mensaje: '${message}' y su organización es '${organization}'. Basado en nuestros servicios (Inteligencia Artificial y Software, Imagen y Marketing Político, Imagen Pública para Candidatos), ¿cuál de nuestros servicios principales crees que sería más relevante para ellos? Responde con el nombre del servicio y una breve justificación de una frase. Si no es claro, sugiere 'una asesoría personalizada'.` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // La API Key será inyectada por el entorno de Canvas/Immersive
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                try {
+                    // Realiza la llamada a la API de Gemini
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+
+                    // Procesa la respuesta de la API
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        serviceRecommendationOutput.innerHTML = `<p class="font-bold text-accent-yellow">Recomendación de Servicio:</p><p>${text}</p>`;
+                    } else {
+                        serviceRecommendationOutput.innerHTML = '<p class="text-red-400">No se pudo generar una recomendación en este momento. Inténtalo de nuevo más tarde.</p>';
+                    }
+                } catch (error) {
+                    // Manejo de errores de la llamada a la API
+                    serviceRecommendationOutput.innerHTML = `<p class="text-red-400">Error al conectar con la IA: ${error.message}</p>`;
+                    console.error('Error en la llamada a la API de Gemini para recomendación de servicio:', error);
+                } finally {
+                    contactSpinner.classList.add('hidden'); // Oculta el spinner
+                    serviceRecommendationOutput.classList.remove('hidden'); // Muestra el output
+                }
+            });
+
+            // Lógica para generar consejos de liderazgo (integración con Gemini API)
+            const generateLeadershipTipBtn = document.getElementById('generateLeadershipTipBtn');
+            const leadershipGoalInput = document.getElementById('leadershipGoalInput');
+            const leadershipTipSpinner = document.getElementById('leadershipTipSpinner');
+            const leadershipTipOutput = document.getElementById('leadershipTipOutput');
+
+            generateLeadershipTipBtn.addEventListener('click', async () => {
+                leadershipTipSpinner.classList.remove('hidden'); // Muestra el spinner
+                leadershipTipOutput.classList.add('hidden'); // Oculta el output anterior
+                leadershipTipOutput.innerHTML = ''; // Limpia el contenido anterior
+
+                const goal = leadershipGoalInput.value;
+
+                // Validación básica de campo
+                if (!goal) {
+                    leadershipTipOutput.classList.remove('hidden');
+                    leadershipTipOutput.innerHTML = '<p class="text-red-400">Por favor, describe tu objetivo de liderazgo.</p>';
+                    leadershipTipSpinner.classList.add('hidden');
+                    return;
+                }
+
+                // Preparación del payload para la API de Gemini
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Genera un consejo de liderazgo político o social, conciso y accionable, para alguien que busca '${goal}'. Enfócate en la estrategia o la percepción. Máximo 2-3 frases.` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // La API Key será inyectada por el entorno de Canvas/Immersive
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                try {
+                    // Realiza la llamada a la API de Gemini
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+
+                    // Procesa la respuesta de la API
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        leadershipTipOutput.innerHTML = `<p>${text}</p>`;
+                    } else {
+                        leadershipTipOutput.innerHTML = '<p class="text-red-400">No se pudo generar un consejo en este momento. Inténtalo de nuevo más tarde.</p>';
+                    }
+                } catch (error) {
+                    // Manejo de errores de la llamada a la API
+                    leadershipTipOutput.innerHTML = `<p class="text-red-400">Error al conectar con la IA: ${error.message}</p>`;
+                    console.error('Error en la llamada a la API de Gemini para consejo de liderazgo:', error);
+                } finally {
+                    leadershipTipSpinner.classList.add('hidden'); // Oculta el spinner
+                    leadershipTipOutput.classList.remove('hidden'); // Muestra el output
+                }
+            });
+        });
+    </script>
+</body>
 </html>
