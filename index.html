@@ -3,67 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PlusPlan: Asesoría Política y Estratégica con Visión Tecnológica</title>
-  <meta name="description" content="Transformamos el liderazgo y la gestión pública para un impacto real, integrando estrategia, tecnología y comunicación.">
-  <!-- Tailwind CSS CDN -->
+  <title>PlusPlan | Asesoría Estratégica y Política</title>
+  <meta name="description" content="Liderazgo político, inteligencia estratégica y tecnología para campañas y organizaciones del futuro.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/luist0r/assets/favicon-plusplan.png" type="image/png">
+  <!-- TailwindCSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Google Fonts: Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    body {
-      background-color: #0A1122;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-    }
-    .text-yellow-ffbb00 { color: #FFBB00; }
-    .bg-yellow-ffbb00 { background-color: #FFBB00; }
-    .btn-outline { border: 2px solid #fff; }
-    .hero-bg {
-      position: absolute;
-      left: 0; top: 0; width: 100vw; height: 100vh; z-index: 0;
-      font-size: 8vw;
-      opacity: 0.08;
-      color: #fff;
-      font-weight: 900;
-      pointer-events: none;
-      user-select: none;
-      overflow: hidden;
-    }
+    body { background: #030C1D; color: #FFF; font-family: 'Inter', sans-serif; }
+    .text-brand { color: #FFBB00; }
+    .bg-brand { background: #FFBB00; }
+    .btn-outline { border: 2px solid #FFF; }
+    .glass { background: rgba(3,12,29,0.80); backdrop-filter: blur(8px); }
+    .section-pad { padding: 4rem 1.5rem; }
+    @media (min-width: 768px) { .section-pad { padding: 6rem 2rem; } }
+    .chart-container { position:relative; margin:auto; width:100%; max-width:450px; height:320px; }
+    @media (min-width: 768px) { .chart-container { height:400px; max-width:500px; } }
+    .flowchart-step { position:relative; padding-left:2.5rem; padding-bottom:2.5rem; border-left:3px solid #FFBB00;}
+    .flowchart-step:last-child { border-left:3px solid transparent;}
+    .flowchart-dot { position:absolute; left:-0.8rem; top:0; width:1.5rem; height:1.5rem; border-radius:9999px; background:#FFBB00; border:3px solid #030C1D;}
+    .spinner { border:4px solid rgba(255,255,255,0.3); border-top:4px solid #FFBB00; border-radius:50%; width:24px; height:24px; animation:spin 1s linear infinite; display:inline-block; vertical-align:middle; margin-right:8px;}
+    @keyframes spin { 0%{ transform:rotate(0deg);} 100%{ transform:rotate(360deg);}}
   </style>
 </head>
-<body class="relative overflow-x-hidden">
+<body class="bg-[#030C1D]">
 
-  <!-- Header -->
-  <header class="w-full flex justify-between items-center px-8 py-6 absolute top-0 left-0 z-10">
-    <div class="text-2xl font-extrabold">
-      <span class="text-yellow-ffbb00">PLUS</span><span class="text-white">PLAN</span>
-    </div>
-    <a href="#contacto" class="bg-yellow-ffbb00 text-black font-bold py-2 px-6 rounded-lg shadow hover:bg-yellow-400 transition-colors">Contacto</a>
-  </header>
+<!-- HEADER -->
+<header class="sticky top-0 z-50 glass">
+  <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="#hero" aria-label="Inicio PlusPlan" class="text-2xl font-bold text-brand">PLUS<span class="text-white">PLAN</span></a>
+    <a href="#contact" class="bg-brand text-black font-bold py-2 px-4 rounded-lg hover:bg-yellow-400 transition-colors shadow" aria-label="Ir a contacto">Contacto</a>
+  </nav>
+</header>
 
-  <!-- Hero Section -->
-  <main class="flex flex-col items-center justify-center min-h-screen relative z-10">
-    <div class="hero-bg hidden md:block">
-      Visión Estratégica
-    </div>
-    <section class="mt-32 md:mt-44 text-center relative z-20">
-      <h1 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
-        Asesoría Política y Estratégica con <span class="text-yellow-ffbb00">Visión Tecnológica</span>
-      </h1>
-      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
-        Transformamos el liderazgo y la gestión pública para un impacto real, integrando estrategia, tecnología y comunicación.
-      </p>
-      <div class="flex flex-col md:flex-row justify-center gap-4">
-        <a href="#servicios" class="bg-yellow-ffbb00 text-black font-bold py-3 px-8 rounded-lg shadow hover:bg-yellow-400 transition-colors">Nuestros Servicios</a>
-        <a href="#contacto" class="btn-outline text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-black transition-colors">Solicitar Asesoría</a>
+<main>
+  <!-- HERO -->
+  <section id="hero" class="min-h-screen flex items-center section-pad bg-cover bg-center relative" style="background-image: linear-gradient(rgba(3, 12, 29, 0.7), rgba(3, 12, 29, 1)), url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80');">
+    <div class="container mx-auto text-center z-10">
+      <h1 class="text-4xl md:text-6xl font-black leading-tight mb-4">Asesoría Política y Estratégica<br>con <span class="text-brand">Visión Tecnológica</span></h1>
+      <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8">Transformamos el liderazgo y la gestión pública para un impacto real, integrando estrategia, tecnología y comunicación.</p>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a href="#services" class="bg-brand text-black font-bold py-3 px-8 rounded-lg text-lg hover:bg-yellow-400 transition-colors">Nuestros Servicios</a>
+        <a href="#contact" class="btn-outline text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-white hover:text-primary-dark transition-colors">Solicitar Asesoría</a>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <!-- Footer -->
-  <footer class="w-full py-6 mt-24 text-center text-gray-400 text-sm border-t border-gray-800 bg-[#0A1122]">
-    &copy; 2025 PlusPlan. Todos los derechos reservados. | Email: hello@plusplan.app | Guatemala
-  </footer>
-</body>
-</html>
+  <!-- FILOSOFÍA -->
+  <section id="philosophy" class="section-pad">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold">Innovación y Percepción para el Liderazgo del Mañana</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+        <div class="bg-gray-800/20 p-8 rounded-lg">
+          <span class="text-5xl text-brand">&#128187;</span>
+          <h3 class="text-2xl font-bold my-4">La Tecnología es el Presente</h3>
+          <p>Diagnóstico y uso de tecnología real para tus objetivos.</p>
+        </div>
+        <div class="bg-gray-800/20 p-8 rounded-lg">
+          <span class="text-5xl text-brand">&#128065;</span>
+          <h3 class="text-2xl font-bold my-4">No Basta con Tener Razón</h3>
+          <p>Proyecta tu visión con intención, inteligencia y una imagen que sea tu mejor estrategia.</p>
+        </div>
+        <div class="bg-gray-800/20 p-8 rounded-lg">
+          <span class="text-5xl text-brand">&#129504;</span>
+          <h3 class="text-2xl font-bold my-4">Imagen Coherente</h3>
+          <p>Transforma tu liderazgo con narrativa sólida e imagen creíble.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="services" class="section-pad bg-gray-900/40">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold">Servicios Integrales de PlusPlan</h2>
+        <p class="mt-4 max-w-2xl mx-auto">Optimiza tu impacto con asesoría política, imagen pública y soluciones digitales de vanguardia.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-primary-dark p-8 rounded-lg shadow-lg">
+          <h3 class="text-xl font-bold text-brand mb-3">Inteligencia Artificial y Software</h3>
+          <p class="mb-4">Herramientas digitales avanzadas a tu alcance.</p>
+          <ul class="list-disc list-inside space-y-2 text-left ml-4">
+            <li>Automatización de tareas</li>
+            <li>Chatbots personalizados 24/7</li>
+            <li>Dashboards inteligentes</li>
+            <li>Integración de sistemas</li>
+          </ul>
+        </div>
+        <div class="bg-primary-dark p-8 rounded-lg shadow-lg">
+          <h3 class="text-xl font-bold text-brand mb-3">Imagen y Marketing Político</h3>
+          <p class="mb-4">Posiciona tu marca y conecta eficazmente.</p>
+          <ul class="list-disc list-inside space-y-2 text-left ml-4">
+            <li>Narrativas de impacto</li>
+            <li>Diagnóstico de imagen pública</li>
+            <li>Producción de contenido</li>
+            <li>Análisis de opinión pública</li>
+          </ul>
+        </div>
+        <div class="bg-primary-dark p-8 rounded-lg shadow-lg md:col-span-2 lg:col-span-1">
+          <h3 class="text-xl font-bold text-brand mb-3">Imagen Pública para Candidatos</h3>
+          <p class="mb-4">Posicionamos tu nombre, historia y visión.</p>
+          <ul class="list-disc list-inside space-y-2 text-left ml-4">
+            <li>Diagnóstico de percepción</li>
+            <li>Construcción de narrativa</li>
+            <li>Producción audiovisual</li>
+            <li>Estrategias de redes y medios</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Gráfico Donut -->
+      <div class="mt-16 text-center">
+        <h3 class="text-2xl font-bold mb-4">Nuestra Distribución de Clientes</h3>
+        <div class="chart-container"><canvas id="clientDonutChart"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOTCAMP -->
+  <section id="bootcamp" class="section-pad">
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Campaign Boot Camp: <span class="text-brand">Guía para Formar Liderazgos</span></h2>
+          <p class="mb-6">Una experiencia intensiva y práctica basada en el método de Christine Pelosi. Estrategias, comunicación y tecnología política para el siglo XXI.</p>
+          <div class="flowchart">
+            <div class="flowchart-step"><div class="flowchart-dot"></div><h4 class="font-bold text-lg">Módulo 1: Fundamentos Estratégicos</h4><p class="text-gray-400">Visión y narrativa auténtica.</p></div>
+            <div class="flowchart-step"><div class="flowchart-dot"></div><h4 class="font-bold text-lg">Módulo 2: Comunicación de Impacto</h4><p class="text-gray-400">Oratoria, debate y medios.</p></div>
+            <div class="flowchart-step"><div class="flowchart-dot"></div><h4 class="font-bold text-lg">Módulo 3: Tecnología para Campañas</h4><p class="text-gray-400">IA, datos y gestión digital.</p></div>
+            <div class="flowchart-step"><div class="flowchart-dot"></div><h4 class="font-bold text-lg">Módulo 4: Liderazgo y Acción</h4><p class="text-gray-400">Plan de acción y movilización.</p></div>
+          </div>
+          <div class="mt-8">
+            <a href="#contact" class="bg-[#F40000] text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-red-700 transition-colors">Inscríbete Ahora</a>
+          </div>
+        </div>
+        <div class="text-center">
+          <h3 class="text-2xl font-bold mb-4">Foco de Nuestros Servicios por Cliente</h3>
+          <div class="chart-container"><canvas id="servicesRadarChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ PLUSPLAN -->
+  <section id="why" class="section-pad bg-gray-900/40">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold">¿Por Qué PlusPlan es Tu Aliado Estratégico?</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <ul class="space-y-6">
+            <li class="flex items-start"><span class="text-2xl text-brand mr-4 mt-1">&#10003;</span><div><h4 class="font-bold text-lg">Experiencia Comprobada</h4><p class="text-gray-400">Trayectoria asesorando líderes y organizaciones.</p></div></li>
+            <li class="flex items-start"><span class="text-2xl text-brand mr-4 mt-1">&#10003;</span><div><h4 class="font-bold text-lg">Innovación Constante</h4><p class="text-gray-400">Las últimas tendencias en IA y estrategia digital.</p></div></li>
+            <li class="flex items-start"><span class="text-2xl text-brand mr-4 mt-1">&#10003;</span><div><h4 class="font-bold text-lg">Resultados Medibles</h4><p class="text-gray-400">Estrategias que generan impacto real.</p></div></li>
+          </ul>
+        </div>
+        <div class="text-center">
+          <h3 class="text-2xl font-bold mb-4">Visión 360°</h3>
+          <div class="chart-container"><canvas id="visionPolarChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonials" class="section-pad">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold">Historias de Éxito con PlusPlan</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gray-800/20 p-8 rounded-lg text-center"><p class="italic mb-4">"Gracias a PlusPlan, nuestra campaña alcanzó una conexión sin precedentes con los votantes. Su enfoque tecnológico marcó la diferencia."</p><p class="font-bold text-brand">Candidato Municipal</p><p class="text-sm text-gray-400">Elecciones 2024</p></div>
+        <div class="bg-gray-800/20 p-8 rounded-lg text-center"><p class="italic mb-4">"El Campaign Boot Camp fue una revelación. Las herramientas y la guía de Pelosi son invaluables para cualquier líder."</p><p class="font-bold text-brand">Líder de ONG</p><p class="text-sm text-gray-400">Sector Desarrollo Social</p></div>
+        <div class="bg-gray-800/20 p-8 rounded-lg text-center"><p class="italic mb-4">"La implementación de IA optimizó nuestros procesos, haciéndonos más eficientes y transparentes."</p><p class="font-bold text-brand">Director de Modernización</p><p class="text-sm text-gray-400">Gobierno Local</p></div>
+      </div>
+      <div class="mt-16 text-center">
+        <h3 class="text-2xl font-bold mb-4">Impacto Medible en Nuestros Proyectos</h3>
+        <div class="chart-container max-w-4xl"><canvas id="impactBarChart"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contact" class="section-pad bg-gray-900/40">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-3xl md:text-4xl font-bold">Impulsa Tu Visión con PlusPlan</h2>
+      <p class="mt-4 mb-8">¿Listo para transformar tu estrategia? Contáctanos hoy mismo para una asesoría personalizada.</p>
+      <form action="https://formspree.io/f/tuformid" method="POST" id="contactForm" class="text-left">
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <input type="text" name="name" placeholder="Nombre Completo" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand" required>
+          <input type="email" name="email" placeholder="Correo Electrónico" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand" required>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <input type="tel" name="phone" placeholder="Teléfono" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand">
+          <input type="text" name="organization" placeholder="Organización / Institución" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand">
+        </div>
+        <div class="mb-6">
+          <textarea name="message" placeholder="Mensaje" rows="5" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand" required></textarea>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="bg-brand text-black font-bold py-3 px-12 rounded-lg text-lg hover:bg-yellow-400 transition-colors mx-auto">Enviar Mensaje</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#030C1D] py-8">
+  <div class="container mx-auto text
