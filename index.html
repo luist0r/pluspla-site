@@ -73,7 +73,7 @@
             border: 3px solid #030C1D; /* Borde para que resalte sobre el fondo */
         }
 
-        /* Estilos para el spinner de carga */
+        /* Estilos para el spinner de carga (se mantiene por si se usa en otro lugar o se reintroduce) */
         .spinner {
             border: 4px solid rgba(255, 255, 255, 0.3); /* Color base del spinner */
             border-top: 4px solid #FFBB00; /* Color de la parte animada */
@@ -224,8 +224,8 @@
                          <div class="mt-8">
                             <a href="#contact" class="bg-accent-red text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-red-700 transition-colors">Inscríbete Ahora</a>
                         </div>
-                        <!-- Sección de IA para generar consejos de liderazgo -->
-                        <div class="mt-8 p-6 bg-gray-800/20 rounded-lg">
+                        <!-- Sección de IA para generar consejos de liderazgo (ELIMINADA) -->
+                        <!-- <div class="mt-8 p-6 bg-gray-800/20 rounded-lg">
                             <h4 class="text-xl font-bold mb-4">Genera un Consejo de Liderazgo ✨</h4>
                             <textarea id="leadershipGoalInput" placeholder="Describe tu objetivo de liderazgo (ej: 'quiero mejorar mi comunicación pública')" rows="3" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-accent-yellow mb-4"></textarea>
                             <button id="generateLeadershipTipBtn" class="bg-accent-yellow text-primary-dark font-bold py-2 px-6 rounded-lg hover:bg-yellow-400 transition-colors flex items-center justify-center">
@@ -233,7 +233,7 @@
                                 Generar Consejo
                             </button>
                             <div id="leadershipTipOutput" class="mt-4 p-3 bg-gray-700 rounded-lg hidden"></div>
-                        </div>
+                        </div> -->
                     </div>
                     <!-- Gráfico de radar de foco de servicios por cliente -->
                     <div class="text-center">
@@ -326,29 +326,32 @@
             </div>
         </section>
 
-        <!-- Sección Contacto: Formulario de contacto y recomendación de servicio con IA -->
+        <!-- Sección Contacto: Formulario de contacto -->
         <section id="contact" class="section-padding bg-gray-900/40">
             <div class="container mx-auto max-w-3xl text-center">
                 <h2 class="text-3xl md:text-4xl font-bold">Impulsa Tu Visión con PlusPlan</h2>
                 <p class="mt-4 mb-8">¿Listo para transformar tu estrategia? Contáctanos hoy mismo para una asesoría personalizada.</p>
-                <form id="contactForm" class="text-left">
+                <!-- Formulario de contacto actualizado para Formspree -->
+                <form id="contactForm" class="text-left" action="https://formspree.io/f/xanbekqq" method="POST">
                     <div class="grid md:grid-cols-2 gap-6 mb-6">
-                        <input type="text" id="contactName" placeholder="Nombre Completo" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-yellow">
-                        <input type="email" id="contactEmail" placeholder="Correo Electrónico" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-yellow">
+                        <input type="text" id="contactName" name="Nombre" placeholder="Nombre Completo" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-yellow" required>
+                        <input type="email" id="contactEmail" name="Correo" placeholder="Correo Electrónico" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-yellow" required>
                     </div>
                     <div class="grid md:grid-cols-2 gap-6 mb-6">
-                        <input type="tel" id="contactPhone" placeholder="Teléfono" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-yellow">
-                        <input type="text" id="contactOrganization" placeholder="Organización / Institución" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-yellow">
+                        <input type="tel" id="contactPhone" name="Teléfono" placeholder="Teléfono" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-yellow">
+                        <input type="text" id="contactOrganization" name="Organización" placeholder="Organización / Institución" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-yellow" required>
                     </div>
                     <div class="mb-6">
-                        <textarea id="contactMessage" placeholder="Mensaje" rows="5" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-yellow"></textarea>
+                        <textarea id="contactMessage" name="Mensaje" placeholder="Mensaje" rows="5" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-accent-yellow" required></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="bg-accent-yellow text-primary-dark font-bold py-3 px-12 rounded-lg text-lg hover:bg-yellow-400 transition-colors flex items-center justify-center mx-auto">
+                            <!-- Spinner de carga (se mantiene por si se usa en otro lugar o se reintroduce) -->
                             <span id="contactSpinner" class="spinner hidden"></span>
                             Enviar Mensaje
                         </button>
-                        <div id="serviceRecommendationOutput" class="mt-4 p-3 bg-gray-700 rounded-lg text-white text-left hidden"></div>
+                        <!-- Div de salida de recomendación (ELIMINADO) -->
+                        <!-- <div id="serviceRecommendationOutput" class="mt-4 p-3 bg-gray-700 rounded-lg text-white text-left hidden"></div> -->
                     </div>
                 </form>
             </div>
@@ -617,118 +620,77 @@
                 });
             });
 
-            // Lógica para el formulario de contacto y recomendación de servicio (integración con Gemini API)
+            // Lógica para el formulario de contacto (solo Formspree)
             const contactForm = document.getElementById('contactForm');
             const contactSpinner = document.getElementById('contactSpinner');
-            const serviceRecommendationOutput = document.getElementById('serviceRecommendationOutput');
+            // serviceRecommendationOutput y lógica de Gemini eliminadas
 
             contactForm.addEventListener('submit', async (e) => {
                 e.preventDefault(); // Previene el envío del formulario
                 contactSpinner.classList.remove('hidden'); // Muestra el spinner
-                serviceRecommendationOutput.classList.add('hidden'); // Oculta el output anterior
-                serviceRecommendationOutput.innerHTML = ''; // Limpia el contenido anterior
+                // serviceRecommendationOutput ya no se usa aquí
 
-                const message = document.getElementById('contactMessage').value;
+                // Recopila todos los datos del formulario
+                const name = document.getElementById('contactName').value;
+                const email = document.getElementById('contactEmail').value;
+                const phone = document.getElementById('contactPhone').value;
                 const organization = document.getElementById('contactOrganization').value;
+                const message = document.getElementById('contactMessage').value;
 
-                // Validación básica de campos
-                if (!message || !organization) {
-                    serviceRecommendationOutput.classList.remove('hidden');
-                    serviceRecommendationOutput.innerHTML = '<p class="text-red-400">Por favor, completa el mensaje y la organización para obtener una recomendación.</p>';
+                // Validación básica de campos requeridos
+                if (!name || !email || !message || !organization) {
+                    // Si se desea mostrar un mensaje de error, se necesitaría un div para ello
+                    alert('Por favor, completa todos los campos obligatorios (Nombre, Correo, Mensaje, Organización).'); // Usando alert temporalmente
                     contactSpinner.classList.add('hidden');
                     return;
                 }
 
-                // Preparación del payload para la API de Gemini
-                let chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: `Un usuario de PlusPlan ha enviado el siguiente mensaje: '${message}' y su organización es '${organization}'. Basado en nuestros servicios (Inteligencia Artificial y Software, Imagen y Marketing Político, Imagen Pública para Candidatos), ¿cuál de nuestros servicios principales crees que sería más relevante para ellos? Responde con el nombre del servicio y una breve justificación de una frase. Si no es claro, sugiere 'una asesoría personalizada'.` }] });
-                const payload = { contents: chatHistory };
-                const apiKey = ""; // La API Key será inyectada por el entorno de Canvas/Immersive
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
+                // --- Acción: Enviar datos a Formspree (para recibir el correo) ---
+                // IMPORTANTE: Reemplaza 'YOUR_FORMSPREE_ID' con el ID de tu formulario de Formspree.
+                // Visita https://formspree.io/ para obtener tu ID y configurar tu email.
                 try {
-                    // Realiza la llamada a la API de Gemini
-                    const response = await fetch(apiUrl, {
+                    const response = await fetch(contactForm.action, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            email: email,
+                            phone: phone,
+                            organization: organization,
+                            message: message
+                        })
                     });
-                    const result = await response.json();
 
-                    // Procesa la respuesta de la API
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        serviceRecommendationOutput.innerHTML = `<p class="font-bold text-accent-yellow">Recomendación de Servicio:</p><p>${text}</p>`;
+                    if (response.ok) {
+                        alert('¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.'); // Usando alert temporalmente
+                        contactForm.reset(); // Limpia el formulario
                     } else {
-                        serviceRecommendationOutput.innerHTML = '<p class="text-red-400">No se pudo generar una recomendación en este momento. Inténtalo de nuevo más tarde.</p>';
+                        const errorData = await response.json();
+                        alert(`Error al enviar el mensaje: ${errorData.error || response.statusText}`); // Usando alert temporalmente
+                        console.error('Error al enviar el formulario a Formspree:', response.status, errorData);
                     }
                 } catch (error) {
-                    // Manejo de errores de la llamada a la API
-                    serviceRecommendationOutput.innerHTML = `<p class="text-red-400">Error al conectar con la IA: ${error.message}</p>`;
-                    console.error('Error en la llamada a la API de Gemini para recomendación de servicio:', error);
+                    alert(`Ocurrió un error de red: ${error.message}`); // Usando alert temporalmente
+                    console.error('Error de red al enviar el formulario:', error);
                 } finally {
                     contactSpinner.classList.add('hidden'); // Oculta el spinner
-                    serviceRecommendationOutput.classList.remove('hidden'); // Muestra el output
                 }
             });
 
-            // Lógica para generar consejos de liderazgo (integración con Gemini API)
+            // Lógica para generar consejos de liderazgo (SECCIÓN ELIMINADA)
+            /*
             const generateLeadershipTipBtn = document.getElementById('generateLeadershipTipBtn');
             const leadershipGoalInput = document.getElementById('leadershipGoalInput');
             const leadershipTipSpinner = document.getElementById('leadershipTipSpinner');
             const leadershipTipOutput = document.getElementById('leadershipTipOutput');
 
             generateLeadershipTipBtn.addEventListener('click', async () => {
-                leadershipTipSpinner.classList.remove('hidden'); // Muestra el spinner
-                leadershipTipOutput.classList.add('hidden'); // Oculta el output anterior
-                leadershipTipOutput.innerHTML = ''; // Limpia el contenido anterior
-
-                const goal = leadershipGoalInput.value;
-
-                // Validación básica de campo
-                if (!goal) {
-                    leadershipTipOutput.classList.remove('hidden');
-                    leadershipTipOutput.innerHTML = '<p class="text-red-400">Por favor, describe tu objetivo de liderazgo.</p>';
-                    leadershipTipSpinner.classList.add('hidden');
-                    return;
-                }
-
-                // Preparación del payload para la API de Gemini
-                let chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: `Genera un consejo de liderazgo político o social, conciso y accionable, para alguien que busca '${goal}'. Enfócate en la estrategia o la percepción. Máximo 2-3 frases.` }] });
-                const payload = { contents: chatHistory };
-                const apiKey = ""; // La API Key será inyectada por el entorno de Canvas/Immersive
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                try {
-                    // Realiza la llamada a la API de Gemini
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    const result = await response.json();
-
-                    // Procesa la respuesta de la API
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        leadershipTipOutput.innerHTML = `<p>${text}</p>`;
-                    } else {
-                        leadershipTipOutput.innerHTML = '<p class="text-red-400">No se pudo generar un consejo en este momento. Inténtalo de nuevo más tarde.</p>';
-                    }
-                } catch (error) {
-                    // Manejo de errores de la llamada a la API
-                    leadershipTipOutput.innerHTML = `<p class="text-red-400">Error al conectar con la IA: ${error.message}</p>`;
-                    console.error('Error en la llamada a la API de Gemini para consejo de liderazgo:', error);
-                } finally {
-                    leadershipTipSpinner.classList.add('hidden'); // Oculta el spinner
-                    leadershipTipOutput.classList.remove('hidden'); // Muestra el output
-                }
+                // ... lógica de IA eliminada ...
             });
+            */
         });
     </script>
 </body>
